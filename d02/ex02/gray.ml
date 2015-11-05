@@ -12,14 +12,24 @@ let list_reverse l =
 let rec list_map f l =
 	match l with
 	  [] -> []
-	| h::t -> (f h)::(list_map f tail)
+	| h::t -> (f h)::(list_map f t)
 
-let gray n =
-	if n < 1 then print_endline "Error"
-	else
-		let rec loop n li =
-			match n with
-			  1 -> loop (n - 1) (["0";"1"]::li)
-			| x when x > 1 -> loop (n - 1) (list_append li (list_reverse li))
-			| _ -> li
-		in loop n []
+let rec gray n =
+	match n with
+	  x when x > 1 -> let li = gray (n - 1) in
+	  					list_append (list_map (fun s -> "0" ^ s) li) (list_map (fun s -> "1" ^ s) (list_reverse li))
+	  | _ -> ["0"; "1"]
+
+(*****************************************************************************)
+
+let () =
+	let rec print_list l =
+		match l with
+		  h::t -> print_string h; print_char ' '; print_list t
+		| _ -> ()
+	in
+	print_string "gray (0) : "; print_list (gray 0);
+	print_string "\ngray (1) : "; print_list (gray 1);
+	print_string "\ngray (2) : "; print_list (gray 2);
+	print_string "\ngray (3) : "; print_list (gray 3);
+	print_string "\ngray (4) : "; print_list (gray 4); print_char '\n'

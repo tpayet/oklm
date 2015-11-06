@@ -16,12 +16,11 @@ let draw_tree_node t_n =
 						Graphics.moveto 425 275; Graphics.lineto 475 225;
 						Graphics.moveto 425 325; Graphics.lineto 475 375
 
+(*****************************************************************************)
 
 let main () =
 	Graphics.open_graph " 800x600";
-	(* Graphics.moveto 400 300; *)
-	(* Graphics.draw_string "42"; *)
-	(* draw_square 400 300 100; *)
+
 	draw_tree_node (Node("value", Nil, Nil));
 	ignore (Graphics.read_key())
 

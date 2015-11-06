@@ -198,7 +198,7 @@ let string_of_protein pro =
 										  | Tyr -> "Tyrosine"
 										  | Val -> "Valine"
 										  | Stop -> "EOP"
-                                    end ^ "; ")
+                                    end ^ "-")
     in loop pro ""
 
 (*****************************************************************************)
@@ -216,7 +216,7 @@ let() =
 										  | G    -> "G"
 										  | U    -> "U"
 										  | _ -> "None"
-									end ^ "; ")	  
+									end)	  
 	in loop rna ""
   in let h = generate_helix 1000 in
 	 print_endline ("Testing "^(string_of_int 1000)^":");

@@ -2,27 +2,62 @@
 
 NAME = ft_graphics
 
-OCAMLC = ocamlc
+SRC = ft_graphics.ml
 
-LGRAPHICS = graphics.cma
+OBJS = $(SRC:.ml=.cmo)
+OPTOBJS = $(SRC:.ml=.cmx)
+TMP = $(OBJS) $(OPTOBJS) $(SRC:.ml=.cmi) $(SRC:.ml=.o)
+DEPS = .depend
 
-SRCS = ft_graphics.ml
+LIBS = $(WITHGRAPHICS)
+WITHGRAPHICS = graphics.cma -cclib -lgraphics
+WITHUNIX = unix.cma -cclib -lunix
+WITHSTR = str.cma -cclib -lstr
+WITHNUMS = nums.cma -cclib -lnums
+WITHTHREADS = threads.cma -cclib -lthreads
+WITHDBM = dbm.cma -cclib -lmldbm -cclib -lndbm
 
-SRCO = $(SRCS:.ml=.cmo)
+RM = rm -rf
+MV = mv -f
+MKDIR = mkdir -p
 
-SRCI = $(SRCS:.ml=.cmi)
+CAMLC = ocamlc
+CAMLOPT = ocamlopt
+CAMLDEP = ocamldep
+CFLAGS = -w +a-4-6-7-9-27-29-32..39-41..42-44-45 -warn-error -a
 
-.PHONY: clean fclean re
+.SUFFIXES:
+.SUFFIXES: .ml .mli .cmo .cmi .cmx
+.PHONY: all me_cry opt clean fclean depend re
 
-all: $(NAME)
+all: depend $(NAME)
 
-$(NAME):
-		$(OCAMLC) $(LGRAPHICS) $(SRCS) -o $(NAME)
+me_cry: CFLAGS = -w @A
+me_cry: depend $(NAME)
+
+-include $(DEPS)
+
+$(NAME): $(OBJS)
+	$(CAMLC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
+
+opt: $(OPTOBJS)
+	$(CAMLOPT) $(CFLAGS) $(LIBS:.cma=.cmxa) $(OPTOBJS) -o $(NAME)
+
+%.cmo: %.ml
+	$(CAMLC) $(CFLAGS) -c $< -o $@
+
+%.cmx: %.ml
+	$(CAMLOPT) $(CFLAGS) -c $< -o $@
 
 clean:
-		rm -f $(SRCO) $(SRCI)
+	$(RM) $(TMP) $(DEPS)
 
 fclean: clean
-		rm -f $(NAME)
+	$(RM) $(NAME)
 
-re: fclean all
+depend: $(DEPS)
+$(DEPS):
+	$(CAMLDEP) $(SRCC) > $(DEPS)
+
+re: fclean
+	$(MAKE) all

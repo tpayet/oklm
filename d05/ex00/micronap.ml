@@ -1,3 +1,5 @@
+(*COMPILE WITH unix.cmxa*)
+
 let my_sleep () = Unix.sleep 1
 
 let () =

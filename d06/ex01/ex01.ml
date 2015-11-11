@@ -8,9 +8,9 @@ module StringHash =
 
 		let hash str = 
 			let rec loop n acc =
-				if n < 0 then acc
-				else loop (n - 1) (acc * 1000 + int_of_char (str.[n]))
-			in loop ((String.length str) - 1) 0
+				if n >= (String.length str) then acc
+				else loop (n + 1) (int_of_char str.[n] + (acc + (acc lsl 5))) (*djb2*)
+			in loop 0 0
 			
 	end
 

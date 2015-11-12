@@ -1,4 +1,5 @@
 let () =
+	Random.self_init ();
 	let doc = new Doctor.doctor "Who" 987 "Jack sparrow" in
 	let human = new People.people "HUMAN A" in
 	let dalek = new Dalek.dalek () in

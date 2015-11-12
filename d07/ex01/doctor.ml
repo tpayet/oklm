@@ -30,7 +30,26 @@ class doctor name age ?(hp=100) sidekick_name =
 			print_endline ("My current hp is " ^ string_of_int _hp ^ ", shoud I feel good ?")
 
 		method travel_in_time start arrival =
-			print_endline "Insert a ASCII Tardis here"; new doctor _name (_age - start + arrival) _sidekick#get_name
+			print_endline ("\n		  _
+         /-\
+    _____|#|_____
+   |_____________|
+  |_______________|
+|||_POLICE_##_BOX_|||
+ | |¯|¯|¯|||¯|¯|¯| |
+ | |-|-|-|||-|-|-| |
+ | |_|_|_|||_|_|_| |
+ | ||~~~| | |¯¯¯|| |
+ | ||~~~|!|!| O || |
+ | ||~~~| |.|___|| |
+ | ||¯¯¯| | |¯¯¯|| |
+ | ||   | | |   || |
+ | ||___| | |___|| |
+ | ||¯¯¯| | |¯¯¯|| |
+ | ||   | | |   || |
+ | ||___| | |___|| |
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+ ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" ^ "\nTraveling from " ^ string_of_int start ^ " to " ^ string_of_int arrival)
 
 		method test_regeneration =
 			self#how_i_am; (self#get_hurt)#how_i_am; ((self#get_hurt)#call_regenerate)#how_i_am

@@ -4,6 +4,7 @@ class people name =
 		initializer print_endline "A people object had been initialized."
 
 		val _name = name
+
 		val _hp = 100
 
 		method to_string = 
